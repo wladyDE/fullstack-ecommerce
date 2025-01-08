@@ -1,0 +1,2 @@
+ng serve --open
+ng generate component components/product-list
