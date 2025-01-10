@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ProductListComponent } from './components/product-list/product-list.component';
-import { ProductService } from './services/product.service';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
