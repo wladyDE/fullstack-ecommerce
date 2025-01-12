@@ -1,6 +1,7 @@
 package com.wlady.backend.controller;
 
 import com.wlady.backend.dao.ProductCategoryRepository;
+import com.wlady.backend.dto.ProductCategoryDTO;
 import com.wlady.backend.entity.ProductCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +19,12 @@ public class ProductCategoryController {
     private ProductCategoryRepository productCategoryRepository;
 
     @GetMapping
-    public List<ProductCategory> getProductCategories() {
-        return productCategoryRepository.findAll();
+    public List<ProductCategoryDTO> getProductCategories() {
+        return productCategoryRepository.findAll().stream()
+                .map(productCategory -> ProductCategoryDTO.builder()
+                        .id(productCategory.getId())
+                        .categoryName(productCategory.getCategoryName())
+                        .build()
+                ).toList();
     }
 }
