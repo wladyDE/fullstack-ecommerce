@@ -24,4 +24,13 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page, size);
         return productRepository.findByCategoryId(id, pageable);
     }
+
+    @GetMapping("/search")
+    public Page<Product> getProductsByName(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findByNameContaining(name, pageable);
+    }
 }
