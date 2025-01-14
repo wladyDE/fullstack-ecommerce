@@ -12,6 +12,30 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getProductListPaginate(
+    thePage: number,
+    thePageSize: number,
+    currentCategoryId: number)
+    :Observable<GetResponseProducts>
+  {
+    const url = `${this.baseUrl}/products?id=${currentCategoryId}`
+      + `&page=${thePage}&size=${thePageSize}`
+
+    return this.httpClient.get<GetResponseProducts>(url);
+  }
+
+  searchProductsPaginate(
+    thePage: number,
+    thePageSize: number,
+    theKeyword: string)
+    :Observable<GetResponseProducts>
+  {
+    const url = `${this.baseUrl}/products/search?name=${theKeyword}`
+      + `&page=${thePage}&size=${thePageSize}`
+
+    return this.httpClient.get<GetResponseProducts>(url);
+  }
+
   getProductList(currentCategoryId: number): Observable<Product[]> {
     const url = `${this.baseUrl}/products?id=${currentCategoryId}`
 
@@ -36,9 +60,17 @@ export class ProductService {
     return this.httpClient.get<Product>(url)
   }
 
-  getProducts(url: string){
-    return this.httpClient.get<{content : Product[]}>(url).pipe(
+  getProducts(url: string) {
+    return this.httpClient.get<GetResponseProducts>(url).pipe(
       map(response => response.content)
     );
   }
+}
+
+interface GetResponseProducts {
+  content: Product[],
+  size: number, // size of this page
+  totalElements: number, // total of all elements
+  totalPages: number, // total pages available
+  number: number // current page number
 }
