@@ -4,6 +4,8 @@ import { Product } from '../../common/product';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CartItem } from '../../common/cart-item';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -25,7 +27,8 @@ export class ProductListComponent implements OnInit {
   theTotalElements: number = 0;
 
   constructor(private productService: ProductService,
-              private route: ActivatedRoute){}
+              private route: ActivatedRoute,
+              private cartService: CartService){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
@@ -94,5 +97,11 @@ export class ProductListComponent implements OnInit {
       this.thePageSize = data.size
       this.theTotalElements = data.totalElements
     }
+  }
+
+  addToCart(theProduct: Product) {
+    const theCartItem = new CartItem(theProduct)
+
+    this.cartService.addToCart(theCartItem)
   }
 }
