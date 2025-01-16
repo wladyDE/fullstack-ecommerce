@@ -1,11 +1,12 @@
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Luv2ShopFormService } from '../../services/luv2-shop-form.service';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [ReactiveFormsModule, CurrencyPipe],
+  imports: [ReactiveFormsModule, CurrencyPipe, CommonModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss'
 })
@@ -16,7 +17,11 @@ export class CheckoutComponent implements OnInit {
   totalPrice: number = 0
   totalQuantity: number = 0
 
-  constructor(private formBuilder: FormBuilder) {}
+  creditCardYears: number[] = []
+  creditCardMonths: number[] = []
+
+  constructor(private formBuilder: FormBuilder,
+              private luv2ShopFormService: Luv2ShopFormService) {}
 
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
@@ -48,6 +53,20 @@ export class CheckoutComponent implements OnInit {
         expirationYear: [''],
       })
     })
+
+    const startMonth: number = new Date().getMonth() + 1
+
+    this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        this.creditCardMonths = data;
+      }
+    )
+
+    this.luv2ShopFormService.getCreditCardYears().subscribe(
+      data => {
+        this.creditCardYears = data;
+      }
+    )
   }
 
   onSubmit(){
@@ -64,5 +83,26 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.checkoutFormGroup.get('billingAddress')?.reset();
     }
+  }
+
+  handleMonthsAndYears() {
+    const creditCardFormGroup = this.checkoutFormGroup.get('creditCard')
+
+    const currentYear: number = new Date().getFullYear()
+    const selectedYear: number = Number(creditCardFormGroup?.value.expirationYear)
+
+    let startMonth: number
+
+    if(currentYear === selectedYear) {
+      startMonth = new Date().getMonth() + 1
+    } else {
+      startMonth = 1
+    }
+
+    this.luv2ShopFormService.getCreditCardMonths(startMonth).subscribe(
+      data => {
+        this.creditCardMonths = data
+      }
+    )
   }
 }
