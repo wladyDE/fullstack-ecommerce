@@ -32,8 +32,6 @@ export class CartDetailsComponent implements OnInit {
     this.cartService.totalQuantity.subscribe(
       data => this.totalQuantity = data
     )
-
-    this.cartService.computeCartTotals()
   }
 
   incrementQuantity(theCartItem: CartItem){
