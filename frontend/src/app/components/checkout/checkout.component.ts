@@ -52,11 +52,26 @@ export class CheckoutComponent implements OnInit {
           ])
       }),
       shippingAddress: this.formBuilder.group({
-        street: [''],
-        city: [''],
-        state: [''],
-        country: [''],
-        zipCode: [''],
+        street: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Luv2ShopValidators.notOnlyWhitespace
+          ]),
+        city: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Luv2ShopValidators.notOnlyWhitespace
+          ]),
+        state: new FormControl('', [ Validators.required ]),
+        country: new FormControl('', [ Validators.required ]),
+        zipCode: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Luv2ShopValidators.notOnlyWhitespace
+          ]),
       }),
       billingAddress: this.formBuilder.group({
         street: [''],
@@ -105,6 +120,12 @@ export class CheckoutComponent implements OnInit {
   get firstName() { return this.checkoutFormGroup.get('customer.firstName') }
   get lastName() { return this.checkoutFormGroup.get('customer.lastName') }
   get email() { return this.checkoutFormGroup.get('customer.email') }
+
+  get shippingAddressStreet() { return this.checkoutFormGroup.get('shippingAddress.street') }
+  get shippingAddressCity() { return this.checkoutFormGroup.get('shippingAddress.city') }
+  get shippingAddressState() { return this.checkoutFormGroup.get('shippingAddress.state') }
+  get shippingAddressCountry() { return this.checkoutFormGroup.get('shippingAddress.country') }
+  get shippingAddressZipCode() { return this.checkoutFormGroup.get('shippingAddress.zipCode') }
 
   copyShippingAddressToBillingAddress(event: Event): void {
     const checkbox = event.target as HTMLInputElement;
