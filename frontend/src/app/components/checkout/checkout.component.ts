@@ -1,9 +1,10 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Luv2ShopFormService } from '../../services/luv2-shop-form.service';
 import { Country } from '../../common/country';
 import { State } from '../../common/state';
+import { Luv2ShopValidators } from '../../validators/luv2-shop-validators/luv2-shop-validators';
 
 @Component({
   selector: 'app-checkout',
@@ -32,9 +33,23 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
-        firstName: [''],
-        lastName: [''],
-        email: ['']
+        firstName: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Luv2ShopValidators.notOnlyWhitespace
+          ]),
+        lastName: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Luv2ShopValidators.notOnlyWhitespace
+          ]),
+        email: new FormControl('',
+          [
+            Validators.required,
+            Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
+          ])
       }),
       shippingAddress: this.formBuilder.group({
         street: [''],
@@ -82,15 +97,21 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.checkoutFormGroup.get('customer')?.value);
+    if (this.checkoutFormGroup.invalid) {
+      this.checkoutFormGroup.markAllAsTouched()
+    }
   }
+
+  get firstName() { return this.checkoutFormGroup.get('customer.firstName') }
+  get lastName() { return this.checkoutFormGroup.get('customer.lastName') }
+  get email() { return this.checkoutFormGroup.get('customer.email') }
 
   copyShippingAddressToBillingAddress(event: Event): void {
     const checkbox = event.target as HTMLInputElement;
 
     if (checkbox.checked) {
       this.checkoutFormGroup.get('billingAddress')
-      ?.setValue(this.checkoutFormGroup.get('shippingAddress')?.value);
+        ?.setValue(this.checkoutFormGroup.get('shippingAddress')?.value);
 
       this.billingAddressStates = this.shippingAddressStates
     } else {
@@ -127,7 +148,7 @@ export class CheckoutComponent implements OnInit {
 
     this.luv2ShopFormService.getStates(countryCode).subscribe(
       data => {
-        if(formGroupName === 'billingAddress'){
+        if (formGroupName === 'billingAddress') {
           this.billingAddressStates = data
         } else {
           this.shippingAddressStates = data
