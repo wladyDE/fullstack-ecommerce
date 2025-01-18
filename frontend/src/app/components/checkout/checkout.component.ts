@@ -5,6 +5,7 @@ import { Luv2ShopFormService } from '../../services/luv2-shop-form.service';
 import { Country } from '../../common/country';
 import { State } from '../../common/state';
 import { Luv2ShopValidators } from '../../validators/luv2-shop-validators/luv2-shop-validators';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -28,7 +29,8 @@ export class CheckoutComponent implements OnInit {
   billingAddressStates: State[] = []
 
   constructor(private formBuilder: FormBuilder,
-    private luv2ShopFormService: Luv2ShopFormService) { }
+    private luv2ShopFormService: Luv2ShopFormService,
+    private cartService: CartService) { }
 
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
@@ -138,6 +140,8 @@ export class CheckoutComponent implements OnInit {
         this.countries = data;
       }
     )
+
+    this.reviewCartDetails()
   }
 
   onSubmit() {
@@ -166,6 +170,16 @@ export class CheckoutComponent implements OnInit {
   get creditCardNameOnCard() { return this.checkoutFormGroup.get('creditCard.nameOnCard') }
   get creditCardNumber() { return this.checkoutFormGroup.get('creditCard.cardNumber') }
   get creditCardSecurityCode() { return this.checkoutFormGroup.get('creditCard.securityCode') }
+
+  reviewCartDetails(){
+    this.cartService.totalPrice.subscribe(
+      data => this.totalPrice = data
+    )
+
+    this.cartService.totalQuantity.subscribe(
+      data => this.totalQuantity = data
+    )
+  }
 
   copyShippingAddressToBillingAddress(event: Event): void {
     const checkbox = event.target as HTMLInputElement;
