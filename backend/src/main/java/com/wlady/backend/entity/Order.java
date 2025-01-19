@@ -20,7 +20,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    private String oderTrackingNumber;
+    private String orderTrackingNumber;
     private int totalQuantity;
     private BigDecimal totalPrice;
     private String status;
