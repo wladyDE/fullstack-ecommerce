@@ -8,7 +8,7 @@ import { ProductCategory } from '../common/product-category';
   providedIn: 'root'
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:8080'
+  private baseUrl = 'http://localhost:8080/api'
 
   constructor(private httpClient: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class ProductService {
     currentCategoryId: number)
     :Observable<GetResponseProducts>
   {
-    const url = `${this.baseUrl}/products?id=${currentCategoryId}`
+    const url = `${this.baseUrl}/products/search/findByCategoryId?id=${currentCategoryId}`
       + `&page=${thePage}&size=${thePageSize}`
 
     return this.httpClient.get<GetResponseProducts>(url);
@@ -30,14 +30,14 @@ export class ProductService {
     theKeyword: string)
     :Observable<GetResponseProducts>
   {
-    const url = `${this.baseUrl}/products/search?name=${theKeyword}`
+    const url = `${this.baseUrl}/products/search/findByNameContaining?name=${theKeyword}`
       + `&page=${thePage}&size=${thePageSize}`
 
     return this.httpClient.get<GetResponseProducts>(url);
   }
 
   getProductList(currentCategoryId: number): Observable<Product[]> {
-    const url = `${this.baseUrl}/products?id=${currentCategoryId}`
+    const url = `${this.baseUrl}/products/search/findByCategoryId?id=${currentCategoryId}`
 
     return this.getProducts(url);
   }
@@ -49,7 +49,7 @@ export class ProductService {
   }
 
   searchProducts(theKeyword: string): Observable<Product[]> {
-    const url = `${this.baseUrl}/products/search?name=${theKeyword}`
+    const url = `${this.baseUrl}/products/search/findByNameContaining?name=${theKeyword}`
 
     return this.getProducts(url);
   }

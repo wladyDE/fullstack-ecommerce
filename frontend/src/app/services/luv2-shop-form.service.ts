@@ -8,18 +8,18 @@ import { State } from '../common/state';
   providedIn: 'root'
 })
 export class Luv2ShopFormService {
-  private baseUrl = 'http://localhost:8080'
+  private baseUrl = 'http://localhost:8080/api'
 
   constructor(private httpClient: HttpClient) { }
 
   getCountries(): Observable<Country[]> {
-    const url = `${this.baseUrl}/country`
+    const url = `${this.baseUrl}/countries`
 
     return this.httpClient.get<Country[]>(url);
   }
 
   getStates(code: string): Observable<State[]> {
-    const url = `${this.baseUrl}/state?code=${code}`
+    const url = `${this.baseUrl}/states?code=${code}`
 
     return this.httpClient.get<State[]>(url);
   }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/state")
+@RequestMapping("/api/states")
 @CrossOrigin("http://localhost:4200")
 public class StateController {
     @Autowired

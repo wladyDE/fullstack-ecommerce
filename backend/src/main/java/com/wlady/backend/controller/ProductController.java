@@ -12,14 +12,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 @CrossOrigin("http://localhost:4200")
 public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    @GetMapping
-    public Page<Product> getProducts(
+    @GetMapping("/search/findByCategoryId")
+    public Page<Product> getProductsByCategoryId(
             @RequestParam(value = "id", required = false) Long id,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -33,7 +33,7 @@ public class ProductController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search/findByNameContaining")
     public Page<Product> getProductsByName(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", defaultValue = "0") int page,

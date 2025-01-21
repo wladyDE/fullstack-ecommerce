@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/country")
+@RequestMapping("/api/countries")
 @CrossOrigin("http://localhost:4200")
 public class CountryController {
     @Autowired
     private CountryRepository countryRepository;
 
     @GetMapping
-    public List<CountryDTO> getProductCategories() {
+    public List<CountryDTO> getCountries() {
         return countryRepository.findAll().stream()
                 .map(country -> CountryDTO.builder()
                         .id(country.getId())

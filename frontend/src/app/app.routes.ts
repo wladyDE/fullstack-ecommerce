@@ -3,8 +3,12 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { LoginComponent } from './components/login/login.component';
+import { OktaCallbackComponent } from '@okta/okta-angular';
 
 export const routes: Routes = [
+  {path: 'login', component: LoginComponent},
+  {path: 'login/callback', component: OktaCallbackComponent},
   { path: 'checkout', component: CheckoutComponent  },
   { path: 'search/:keyword', component: ProductListComponent },
   { path: 'cart-details', component: CartDetailsComponent },
