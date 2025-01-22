@@ -1,6 +1,6 @@
 package com.wlady.backend.controller;
 
-import com.wlady.backend.dao.ProductCategoryRepository;
+import com.wlady.backend.repository.ProductCategoryRepository;
 import com.wlady.backend.dto.ProductCategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/product-category")
-@CrossOrigin("http://localhost:4200")
 public class ProductCategoryController {
     @Autowired
     private ProductCategoryRepository productCategoryRepository;

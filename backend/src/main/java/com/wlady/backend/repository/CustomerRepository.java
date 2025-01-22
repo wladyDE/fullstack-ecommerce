@@ -1,4 +1,4 @@
-package com.wlady.backend.dao;
+package com.wlady.backend.repository;
 
 import com.wlady.backend.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;

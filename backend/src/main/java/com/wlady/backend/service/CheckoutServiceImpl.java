@@ -1,6 +1,6 @@
 package com.wlady.backend.service;
 
-import com.wlady.backend.dao.CustomerRepository;
+import com.wlady.backend.repository.CustomerRepository;
 import com.wlady.backend.dto.Purchase;
 import com.wlady.backend.dto.PurchaseResponse;
 import com.wlady.backend.entity.Customer;

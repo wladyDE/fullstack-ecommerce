@@ -1,6 +1,6 @@
 package com.wlady.backend.controller;
 
-import com.wlady.backend.dao.ProductRepository;
+import com.wlady.backend.repository.ProductRepository;
 import com.wlady.backend.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin("http://localhost:4200")
 public class ProductController {
     @Autowired
     private ProductRepository productRepository;

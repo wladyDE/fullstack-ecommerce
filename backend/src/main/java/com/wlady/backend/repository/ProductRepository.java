@@ -1,4 +1,4 @@
-package com.wlady.backend.dao;
+package com.wlady.backend.repository;
 
 import com.wlady.backend.entity.Product;
 import org.springframework.data.domain.Page;

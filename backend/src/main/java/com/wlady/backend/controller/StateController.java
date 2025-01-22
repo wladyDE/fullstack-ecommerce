@@ -1,6 +1,6 @@
 package com.wlady.backend.controller;
 
-import com.wlady.backend.dao.StateRepository;
+import com.wlady.backend.repository.StateRepository;
 import com.wlady.backend.entity.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/states")
-@CrossOrigin("http://localhost:4200")
 public class StateController {
     @Autowired
     StateRepository stateRepository;
