@@ -33,6 +33,12 @@ public class CheckoutServiceImpl implements CheckoutService{
         order.setBillingAddress(purchase.getBillingAddress());
 
         Customer customer = purchase.getCustomer();
+
+        Customer customerFromDB = customerRepository.findByEmail(customer.getEmail());
+        if(customerFromDB != null){
+            customer = customerFromDB;
+        }
+
         customer.add(order);
 
         customerRepository.save(customer);

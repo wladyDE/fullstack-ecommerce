@@ -2,7 +2,6 @@ package com.wlady.backend.controller;
 
 import com.wlady.backend.dao.ProductCategoryRepository;
 import com.wlady.backend.dto.ProductCategoryDTO;
-import com.wlady.backend.entity.ProductCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
