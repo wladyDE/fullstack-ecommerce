@@ -1,3 +1,5 @@
+import { TokenManager } from "@okta/okta-auth-js";
+
 declare module '@okta/okta-signin-widget'
 
 declare module '@okta/okta-auth-js' {
@@ -9,6 +11,7 @@ declare module '@okta/okta-auth-js' {
   }
 
   export class OktaAuth {
+    tokenManager: TokenManager
     constructor(config: OktaAuthConfig);
     signInWithRedirect(): void;
     signOut(): Promise<void>;
