@@ -1,3 +1,13 @@
+Accomplishments: 
+
+Developed an E-Commerce Shopping Cart app - Full Stack
+Created frontend and backend using Angular and Spring Boot
+Secured the application with JWT, OAuth2 and OpenID Connect
+Encrypted data communications with TLS/SSL (https)
+Processed credit card payment with Stripe API
+
+
+
 # Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.

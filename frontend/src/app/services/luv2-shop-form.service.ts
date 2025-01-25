@@ -3,12 +3,13 @@ import { Observable, of } from 'rxjs';
 import { Country } from '../common/country';
 import { HttpClient } from '@angular/common/http';
 import { State } from '../common/state';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Luv2ShopFormService {
-  private baseUrl = 'http://localhost:8080/api'
+  private baseUrl = environment.luv2shopApiUrl
 
   constructor(private httpClient: HttpClient) { }
 

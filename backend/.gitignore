@@ -20,6 +20,7 @@ target/
 *.ipr
 *.properties
 **/application.properties
+*.p12
 
 
 
@@ -35,3 +36,4 @@ build/
 
 ### VS Code ###
 .vscode/
+
